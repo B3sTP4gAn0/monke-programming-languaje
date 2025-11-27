@@ -2,7 +2,6 @@ package ast
 
 import (
 	"monkey/token"
-	"text/template/parse"
 )
 
 type Node interface {
@@ -25,12 +24,20 @@ type Program struct {
 
 type LetStatement struct {
 	Token token.Token
-	Name  *Identfier
+	Name  *Identifier
 	Value Expression
 }
 
 func (ls *LetStatement) StatementNode()       {}
 func (ls *LetStatement) TokenLiteral() string { return ls.Token.Literal }
+
+type ReturnStatement struct {
+	Token        token.Token
+	ReturnValues Expression
+}
+
+func (rs *ReturnStatement) StatementNode()       {}
+func (rs *ReturnStatement) TokenLiteral() string { return rs.Token.Literal }
 
 type Identifier struct {
 	Token token.Token // token.IDENT
