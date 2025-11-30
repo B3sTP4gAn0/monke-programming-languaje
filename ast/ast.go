@@ -64,12 +64,20 @@ func (rs *ReturnStatement) String() string {
 }
 
 type ExpressionStatement struct {
-	Token       token.Token // the first token of the expression
-	ReturnValue Expression
+	Token      token.Token // the first token of the expression
+	Expression Expression
 }
 
 func (es *ExpressionStatement) StatementNode()       {}
 func (es *ExpressionStatement) TokenLiteral() string { return es.Token.Literal }
+func (es *ExpressionStatement) String() string {
+	var out bytes.Buffer
+	out.WriteString(es.TokenLiteral() + " ")
+	if es.Expression != nil {
+		return es.Expression.String()
+	}
+	return ""
+}
 
 type Identifier struct {
 	Token token.Token // token.IDENT
